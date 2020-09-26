@@ -10,9 +10,11 @@ class Man10DrugMission : JavaPlugin() {
 
     lateinit var dunce:Dunce
     lateinit var event:Event
+    lateinit var vault:VaultManager
 
     var drugWorld = ""
     var dunceCount = 10
+    var dropMoney = 0
 
     override fun onEnable() {
         // Plugin startup logic
@@ -20,9 +22,11 @@ class Man10DrugMission : JavaPlugin() {
 
         drugWorld = config.getString("world")!!
         dunceCount = config.getInt("dunce")
+        dropMoney = config.getInt("dropmoney")
 
         dunce = Dunce(this)
         event = Event(this)
+        vault = VaultManager(this)
 
         server.pluginManager.registerEvents(event,this)
 
