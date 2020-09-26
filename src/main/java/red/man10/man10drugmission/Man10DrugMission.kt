@@ -1,5 +1,6 @@
 package red.man10.man10drugmission
 
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -36,12 +37,14 @@ class Man10DrugMission : JavaPlugin() {
 
         if (sender !is Player)return false
 
+        if (!sender.hasPermission("drug_mission.op"))return true
+
         if (args.isEmpty()){
 
             sender.sendMessage("§dMan10DrugMission 麻薬密売ミッション")
             sender.sendMessage("§d/mission setworld 現在地点を密売マップに指定する")
             sender.sendMessage("§d/mission reload configをリロードする")
-            sender.sendMessage("§d/mission dunce <set/unset> <player> 負け犬設定をする")
+            sender.sendMessage("§d/mission dunce <set/reset> <player> 負け犬設定をする")
 
             return true
         }
@@ -59,6 +62,51 @@ class Man10DrugMission : JavaPlugin() {
             }.start()
 
         }
+
+        if (args[0] == "dunce"){
+
+            if (args.size != 3)return false
+
+            if (args[1] == "set"){
+
+                val p = Bukkit.getPlayer(args[2])?:return false
+
+                Thread{
+                    dunce.setDunce(p)
+
+                    sender.sendMessage("§dセット完了")
+                }.start()
+
+                return true
+            }
+
+            if (args[1] == "reset"){
+
+                val p = Bukkit.getPlayer(args[2])?:return false
+
+                Thread{
+                    dunce.resetDunce(p)
+
+                    sender.sendMessage("§dリセット完了")
+                }.start()
+
+                return true
+            }
+
+        }
+
+        if (args[0] == "reload"){
+
+            Thread{
+                reloadConfig()
+
+                drugWorld = config.getString("world")!!
+                dunceCount = config.getInt("dunce")
+            }.start()
+
+        }
+
+
 
 
 

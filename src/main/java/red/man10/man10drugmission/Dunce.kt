@@ -45,5 +45,11 @@ class Dunce(var plugin:Man10DrugMission) {
 
     }
 
+    fun setDunce(p:Player){
+        val mysql = MySQLManager(plugin,"DrugMission")
+        mysql.execute("UPDATE dunce_table SET disconnect_count=${plugin.dunceCount} WHERE uuid='${p.uniqueId}';")
+
+    }
+
 
 }
