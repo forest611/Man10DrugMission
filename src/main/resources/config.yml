@@ -1,0 +1,7 @@
+mysql:
+  host: localhost
+  user: root
+  db: man10_drug_mission
+  pass: password
+  port: 3306
+world: 01

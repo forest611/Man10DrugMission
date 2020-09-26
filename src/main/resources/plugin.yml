@@ -1,0 +1,9 @@
+name: Man10DrugMission
+version: 1.0
+softdepend:
+  - Man10CommonLibs
+main: red.man10.man10drugmission.Man10DrugMission
+api-version: 1.16
+commands:
+  mission:
+    default:op
