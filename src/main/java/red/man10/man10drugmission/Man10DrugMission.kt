@@ -106,11 +106,6 @@ class Man10DrugMission : JavaPlugin() {
 
         }
 
-
-
-
-
-
         return false
     }
 }
