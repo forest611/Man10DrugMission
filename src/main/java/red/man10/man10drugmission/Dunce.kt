@@ -15,7 +15,7 @@ class Dunce(var plugin:Man10DrugMission) {
         val rs = mysql.query("SELECT * FROM dunce_table WHERE uuid='${p.uniqueId}';")
 
         if (rs == null ||!rs.next()){
-            mysql.execute("INSERT INTO dunce_table (player, uuid, disconnect_count) VALUES (${p.name}, ${p.uniqueId}, DEFAULT);")
+            mysql.execute("INSERT INTO dunce_table (player, uuid, disconnect_count) VALUES ('${p.name}', '${p.uniqueId}', DEFAULT);")
             return
         }
 

@@ -5,3 +5,5 @@ mysql:
   pass: password
   port: 3306
 world: 01
+dunce: 10
+dropmoney: 1000

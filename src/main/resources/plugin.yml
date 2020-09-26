@@ -6,4 +6,4 @@ main: red.man10.man10drugmission.Man10DrugMission
 api-version: 1.16
 commands:
   mission:
-    default:op
+    default: op
