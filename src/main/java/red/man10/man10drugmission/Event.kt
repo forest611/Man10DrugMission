@@ -52,11 +52,23 @@ class Event(val plugin: Man10DrugMission) :Listener{
             return
         }
 
-        if (!plugin.start && !p.hasPermission("drug_mission.op")){
-            p.sendMessage("§c§l麻薬マップは現在閉まっています")
-            p.teleport(plugin.spawnLocation)
-            return
-        }
+        Thread{
+            Thread.sleep(1000)
+
+            if (!plugin.start && !p.hasPermission("drug_mission.op")){
+                p.sendMessage("§c§l麻薬マップは現在閉まっています")
+                Bukkit.getScheduler().runTask(plugin,Runnable{
+                    p.teleport(plugin.spawnLocation)
+                })
+                return@Thread
+            }
+        }.start()
+
+//        if (!plugin.start){
+//            p.sendMessage("§c§l麻薬マップは現在閉まっています")
+//            p.teleport(plugin.spawnLocation)
+//            return
+//        }
 
     }
 
