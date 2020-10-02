@@ -48,7 +48,13 @@ class Event(val plugin: Man10DrugMission) :Listener{
             p.playSound(p.location, Sound.ENTITY_PARROT_IMITATE_WITCH,1.0F,1.0F)
             p.sendMessage("§c§l負け犬は密売マップに入れない！！")
 
-            p.teleport(Location(Bukkit.getWorld("world"),p.location.x,p.location.y,p.location.z))
+            p.teleport(plugin.spawnLocation)
+            return
+        }
+
+        if (!plugin.start){
+            p.sendMessage("§c§l麻薬マップは現在閉まっています")
+            p.teleport(plugin.spawnLocation)
             return
         }
 

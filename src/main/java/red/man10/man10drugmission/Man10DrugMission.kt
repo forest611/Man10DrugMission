@@ -1,6 +1,7 @@
 package red.man10.man10drugmission
 
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -15,6 +16,8 @@ class Man10DrugMission : JavaPlugin() {
     var drugWorld = ""
     var dunceCount = 10
     var dropMoney = 0
+    var start = false
+    lateinit var spawnLocation : Location
 
     override fun onEnable() {
         // Plugin startup logic
@@ -23,6 +26,8 @@ class Man10DrugMission : JavaPlugin() {
         drugWorld = config.getString("world")!!
         dunceCount = config.getInt("dunce")
         dropMoney = config.getInt("dropmoney")
+        start = config.getBoolean("start")
+        spawnLocation = config.getLocation("location")?: Location(Bukkit.getWorld("world"),0.0,60.0,0.0)
 
         dunce = Dunce(this)
         event = Event(this)
@@ -49,6 +54,8 @@ class Man10DrugMission : JavaPlugin() {
             sender.sendMessage("§d/mission setworld 現在地点を密売マップに指定する")
             sender.sendMessage("§d/mission reload configをリロードする")
             sender.sendMessage("§d/mission dunce <set/reset> <player> 負け犬設定をする")
+            sender.sendMessage("§d/mission <on/off> 麻薬ゲームをon offにする")
+            sender.sendMessage("§d/mission location 現在地点をキックしたときのロケーションに設定する")
 
             return true
         }
@@ -106,8 +113,43 @@ class Man10DrugMission : JavaPlugin() {
 
                 drugWorld = config.getString("world")!!
                 dunceCount = config.getInt("dunce")
+                start = config.getBoolean("start")
             }.start()
 
+        }
+
+        if (args[0] == "location"){
+
+            Thread{
+                spawnLocation = sender.location
+                config.set("location",spawnLocation)
+                saveConfig()
+            }.start()
+
+        }
+
+        if (args[0] == "on"){
+            Thread{
+                start = true
+                config.set("start",true)
+                saveConfig()
+            }.start()
+            for (p in Bukkit.getOnlinePlayers()){
+                if (p.world.name == drugWorld){
+                    p.teleport(spawnLocation)
+                }
+            }
+
+            Bukkit.broadcastMessage("§e§l麻薬マップが閉じました！")
+        }
+
+        if (args[0] == "off"){
+            Thread{
+                start = false
+                config.set("start",false)
+                saveConfig()
+            }.start()
+            Bukkit.broadcastMessage("§e§l麻薬マップが開きました！")
         }
 
         return false
