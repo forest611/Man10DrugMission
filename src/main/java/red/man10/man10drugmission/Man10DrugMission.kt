@@ -134,13 +134,8 @@ class Man10DrugMission : JavaPlugin() {
                 config.set("start",true)
                 saveConfig()
             }.start()
-            for (p in Bukkit.getOnlinePlayers()){
-                if (p.world.name == drugWorld){
-                    p.teleport(spawnLocation)
-                }
-            }
 
-            Bukkit.broadcastMessage("§e§l麻薬マップが閉じました！")
+            Bukkit.broadcastMessage("§e§l麻薬マップが開きました！")
         }
 
         if (args[0] == "off"){
@@ -149,7 +144,12 @@ class Man10DrugMission : JavaPlugin() {
                 config.set("start",false)
                 saveConfig()
             }.start()
-            Bukkit.broadcastMessage("§e§l麻薬マップが開きました！")
+            for (p in Bukkit.getOnlinePlayers()){
+                if (p.world.name == drugWorld){
+                    p.teleport(spawnLocation)
+                }
+            }
+            Bukkit.broadcastMessage("§e§l麻薬マップが閉じました！")
         }
 
         return false

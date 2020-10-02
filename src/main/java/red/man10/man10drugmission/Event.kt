@@ -52,7 +52,7 @@ class Event(val plugin: Man10DrugMission) :Listener{
             return
         }
 
-        if (!plugin.start){
+        if (!plugin.start && !p.hasPermission("drug_mission.op")){
             p.sendMessage("§c§l麻薬マップは現在閉まっています")
             p.teleport(plugin.spawnLocation)
             return
