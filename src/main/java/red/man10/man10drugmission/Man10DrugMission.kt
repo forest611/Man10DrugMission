@@ -22,6 +22,7 @@ class Man10DrugMission : JavaPlugin() {
     var dunceCount = 10
     var dropMoney = 0
     var start = false
+    var detonateFireworks = true
     lateinit var spawnLocation : Location
 
     var fireworkCoolDown = 10
@@ -60,6 +61,7 @@ class Man10DrugMission : JavaPlugin() {
     fun fireworks(){
 
         if (!start)return
+        if (!detonateFireworks)return
 
         Bukkit.getScheduler().runTask(this, Runnable {
             for (p in Bukkit.getOnlinePlayers()){
@@ -188,6 +190,11 @@ class Man10DrugMission : JavaPlugin() {
                 }
             }
             Bukkit.broadcastMessage("§e§l麻薬マップが閉じました！")
+        }
+
+        if (args[0] == "firework"){
+            detonateFireworks = !detonateFireworks
+            sender.sendMessage(detonateFireworks.toString())
         }
 
         return false
