@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import kotlin.random.Random
 
-class Event(val plugin: Man10DrugMission) :Listener{
+class Event(private val plugin: Man10DrugMission) :Listener{
 
     @EventHandler
     fun join(e:PlayerJoinEvent){
