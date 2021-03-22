@@ -26,9 +26,6 @@ class Man10DrugMission : JavaPlugin() {
     var detonateFireworks = true
     lateinit var spawnLocation : Location
 
-    var fireworkCoolDown = 10
-    val effect = FireworkEffect.builder().flicker(true).trail(true).withColor(Color.YELLOW).with(FireworkEffect.Type.CREEPER).build()
-
     override fun onEnable() {
         // Plugin startup logic
         saveDefaultConfig()
@@ -45,12 +42,6 @@ class Man10DrugMission : JavaPlugin() {
 
         server.pluginManager.registerEvents(event,this)
 
-        Thread{
-            while (true){
-                fireworks()
-                Thread.sleep((fireworkCoolDown*1000).toLong())
-            }
-        }.start()
 
     }
 
@@ -58,29 +49,6 @@ class Man10DrugMission : JavaPlugin() {
         // Plugin shutdown logic
     }
 
-    //麻薬マップに居るプレイヤーから花火を出す
-    fun fireworks(){
-
-        if (!start)return
-        if (!detonateFireworks)return
-
-        Bukkit.getScheduler().runTask(this, Runnable {
-            for (p in Bukkit.getOnlinePlayers()){
-                if (p.world.name != drugWorld)continue
-
-                val loc = p.location.clone()
-                loc.y += 10
-
-                val fw = p.world.spawnEntity(loc, EntityType.FIREWORK) as Firework
-                val meta = fw.fireworkMeta
-                meta.addEffect(effect)
-                meta.power=2
-                fw.fireworkMeta = meta
-                fw.detonate()
-            }
-        })
-
-    }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
 
