@@ -19,7 +19,7 @@ import kotlin.random.Random
 class Event(private val plugin: Man10DrugMission) :Listener{
 
     companion object{
-        val killCount = HashMap<UUID,Int>()
+        val killCount = HashMap<UUID,MutableList<UUID>>()
     }
 
     @EventHandler
@@ -121,7 +121,11 @@ class Event(private val plugin: Man10DrugMission) :Listener{
                     plugin.vault.deposit(killer.uniqueId,drop)
                 }
 
-                killCount[killer.uniqueId] = killCount[killer.uniqueId]?:0 + 1
+                val list = killCount[killer.uniqueId]?: mutableListOf()
+                if (!list.contains(p.uniqueId)){
+                    list.add(p.uniqueId)
+                }
+                killCount[killer.uniqueId] = list
             }
 
         }
