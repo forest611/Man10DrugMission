@@ -11,6 +11,7 @@ import org.bukkit.entity.Firework
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.FireworkMeta
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.*
 
 class Man10DrugMission : JavaPlugin() {
 
@@ -190,6 +191,18 @@ class Man10DrugMission : JavaPlugin() {
                 }
             }
             Bukkit.broadcastMessage("§e§l麻薬マップが閉じました！")
+
+            var pair : Pair<UUID?,Int> = Pair(null,0)
+
+            for (data in Event.killCount){
+
+                if (pair.second<data.value){
+                    pair = Pair(data.key,data.value)
+                }
+
+            }
+
+            Bukkit.broadcastMessage("KillRankingTop:${Bukkit.getPlayer(pair.first!!)!!.name},${pair.second} killed")
         }
 
         if (args[0] == "firework"){

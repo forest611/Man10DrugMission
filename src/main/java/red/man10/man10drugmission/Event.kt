@@ -12,9 +12,15 @@ import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.random.Random
 
 class Event(private val plugin: Man10DrugMission) :Listener{
+
+    companion object{
+        val killCount = HashMap<UUID,Int>()
+    }
 
     @EventHandler
     fun join(e:PlayerJoinEvent){
@@ -103,7 +109,7 @@ class Event(private val plugin: Man10DrugMission) :Listener{
         val p = e.entity
         val killer = e.entity.killer
 
-        if (e.entity.world.name == plugin.drugWorld){
+        if (p.world.name == plugin.drugWorld){
             e.deathMessage = null
 
             if (killer !=null){
@@ -114,6 +120,8 @@ class Event(private val plugin: Man10DrugMission) :Listener{
                     plugin.vault.withdraw(p.uniqueId,drop)
                     plugin.vault.deposit(killer.uniqueId,drop)
                 }
+
+                killCount[killer.uniqueId] = killCount[killer.uniqueId]?:0 + 1
             }
 
         }
