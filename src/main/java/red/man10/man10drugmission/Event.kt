@@ -1,17 +1,16 @@
 package red.man10.man10drugmission
 
 import org.bukkit.Bukkit
-import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.World
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityToggleGlideEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
-import org.bukkit.event.player.PlayerCommandSendEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import kotlin.random.Random
 
@@ -70,6 +69,20 @@ class Event(private val plugin: Man10DrugMission) :Listener{
 //            return
 //        }
 
+    }
+
+    @EventHandler
+    fun footBedrock(e:PlayerMoveEvent){
+        val p = e.player
+
+        if (p.world.name != plugin.drugWorld)return
+
+        val loc = p.location
+        loc.set(loc.x,loc.y-1.0,loc.z)
+        if (loc.block.type == Material.BEDROCK){
+            p.health = 0.0
+            p.sendMessage("§c地雷を踏んでしまった！")
+        }
     }
 
     @EventHandler
