@@ -164,8 +164,8 @@ class Man10DrugMission : JavaPlugin() {
 
             for (data in Event.killCount){
 
-                if (pair.second<data.value){
-                    pair = Pair(data.key,data.value)
+                if (pair.second < data.value.size){
+                    pair = Pair(data.key,data.value.size)
                 }
 
             }
