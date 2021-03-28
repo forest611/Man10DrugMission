@@ -170,7 +170,10 @@ class Man10DrugMission : JavaPlugin() {
 
             }
 
-            Bukkit.broadcastMessage("KillRankingTop:${Bukkit.getPlayer(pair.first!!)!!.name},${pair.second} player killed")
+            if (pair.first !=null){
+                Bukkit.broadcastMessage("KillRankingTop:${Bukkit.getPlayer(pair.first!!)!!.name},${pair.second} player killed")
+            }
+
         }
 
         if (args[0] == "firework"){
