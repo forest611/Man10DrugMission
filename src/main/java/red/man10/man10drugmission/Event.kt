@@ -91,18 +91,18 @@ class Event(private val plugin: Man10DrugMission) :Listener{
         }
     }
 
-    @EventHandler
-    fun glideEvent(e:EntityToggleGlideEvent){
-
-        val p = e.entity
-        if (p !is Player)return
-
-        if (p.world.name != plugin.drugWorld)return
-
-        if (e.isGliding){
-            e.isCancelled = true
-        }
-    }
+//    @EventHandler
+//    fun glideEvent(e:EntityToggleGlideEvent){
+//
+//        val p = e.entity
+//        if (p !is Player)return
+//
+//        if (p.world.name != plugin.drugWorld)return
+//
+//        if (e.isGliding){
+//            e.isCancelled = true
+//        }
+//    }
 
     @EventHandler
     fun deathEvent(e:PlayerDeathEvent){
